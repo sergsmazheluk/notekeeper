@@ -1,3 +1,7 @@
+using Notes.Application.Common.Mappings;
+using Notes.Application;
+using Notes.Persistance;
+using System.Reflection;
 
 namespace Notes.WebApi
 {
@@ -8,13 +12,39 @@ namespace Notes.WebApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            //Adding automapper
+            builder.Services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
+                cfg.AddProfile(new AssemblyMappingProfile(typeof(AssemblyMappingProfile).Assembly));
+            });
+
+            builder.Services.AddApplication();
+            builder.Services.AddPersistence(builder.Configuration);
+
+            builder.Services.AddCors();
+
             var app = builder.Build();
+
+            // Database initialization
+            using (var scope = app.Services.CreateScope())
+            {
+                var serviceProvider = scope.ServiceProvider;
+                try
+                {
+                    var context = serviceProvider.GetRequiredService<NotesDbContext>();
+                    DbInitializer.Initialize(context);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -24,12 +54,8 @@ namespace Notes.WebApi
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
             app.MapControllers();
-
             app.Run();
         }
     }

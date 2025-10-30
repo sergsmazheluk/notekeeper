@@ -9,6 +9,7 @@ namespace Notes.Application
         {
             services.AddMediatR(cfg =>
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
             return services;
         }
     }

@@ -10,15 +10,13 @@ namespace Notes.Persistance
         public static IServiceCollection AddPersistence(this IServiceCollection
             services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DbConnection") ??
-                throw new InvalidOperationException("Connection string 'DbConnection' " +
-                "not found.");
-            services.AddDbContext<NotesDbContext>(options =>
-            {
-                options.UseSqlite(connectionString);
-            });
+            var connectionString = configuration.GetConnectionString("DbConnection");
 
-            services.AddScoped<INotesDbContext, NotesDbContext>();
+            services.AddDbContext<NotesDbContext>(options =>
+                options.UseSqlite(connectionString));
+
+            services.AddScoped<INotesDbContext>(provider =>
+                provider.GetRequiredService<NotesDbContext>());
 
             return services;
         }
