@@ -27,7 +27,13 @@ namespace Notes.WebApi
             builder.Services.AddApplication();
             builder.Services.AddPersistence(builder.Configuration);
 
-            builder.Services.AddCors();
+            builder.Services.AddCors(options =>
+            options.AddPolicy("AllowAll", policy =>
+            {
+                policy.AllowAnyHeader();
+                policy.AllowAnyMethod();
+                policy.AllowAnyOrigin();
+            }));
 
             var app = builder.Build();
 
@@ -53,6 +59,8 @@ namespace Notes.WebApi
                 app.UseSwaggerUI();
             }
 
+            app.UseRouting();
+            app.UseCors("AllowAll");
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
