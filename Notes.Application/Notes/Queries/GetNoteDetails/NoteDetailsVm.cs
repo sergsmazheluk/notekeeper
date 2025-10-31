@@ -2,7 +2,7 @@
 using Notes.Application.Common.Mappings;
 using Notes.Domain;
 
-namespace Notes.Application.Notes.Commands.Queries.GetNoteDetails
+namespace Notes.Application.Notes.Queries.GetNoteDetails
 {
     public class NoteDetailsVm : IMapWith<Note>
     {

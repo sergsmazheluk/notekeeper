@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Notes.Application.Interfaces;
 using Notes.Domain;
 using Notes.Application.Common.Exceptions;
-namespace Notes.Application.Notes.Commands.Queries.GetNoteDetails
+namespace Notes.Application.Notes.Queries.GetNoteDetails
 {
     public class GetNoteDetailsQueryHandler : IRequestHandler<GetNoteDetailsQuery,
         NoteDetailsVm>

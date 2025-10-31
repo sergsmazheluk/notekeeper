@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Notes.Application.Notes.Commands.Queries.GetNoteDetails;
-using Notes.Application.Notes.Commands.Queries.GetNoteList;
 using Notes.WebApi.Models;
 using Notes.Application.Notes.Commands.CreateNote;
 using AutoMapper;
 using Notes.Application.Notes.Commands.UpdateNote;
 using Notes.Application.Notes.Commands.DeleteCommand;
+using Notes.Application.Notes.Queries.GetNoteDetails;
+using Notes.Application.Notes.Queries.GetNoteList;
 
 namespace Notes.WebApi.Controllers
 {

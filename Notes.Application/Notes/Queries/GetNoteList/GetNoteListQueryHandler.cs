@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Notes.Application.Interfaces;
 
-namespace Notes.Application.Notes.Commands.Queries.GetNoteList
+namespace Notes.Application.Notes.Queries.GetNoteList
 {
     public class GetNoteListQueryHandler : IRequestHandler<GetNoteListQuery, NoteListVm>
     {

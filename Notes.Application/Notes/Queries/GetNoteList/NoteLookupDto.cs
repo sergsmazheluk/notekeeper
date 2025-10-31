@@ -2,7 +2,7 @@
 using Notes.Application.Common.Mappings;
 using Notes.Domain;
 
-namespace Notes.Application.Notes.Commands.Queries.GetNoteList
+namespace Notes.Application.Notes.Queries.GetNoteList
 {
     public class NoteLookupDto : IMapWith<Note>
     {
