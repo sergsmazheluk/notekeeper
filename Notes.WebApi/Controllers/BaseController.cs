@@ -8,7 +8,7 @@ namespace Notes.WebApi.Controllers
     [Route("api/[controller]/[action]")]
     public abstract class BaseController : ControllerBase
     {
-        private IMediator mediator { get; set; }
+        private IMediator mediator;
 
         protected IMediator Mediator =>
             mediator ??= HttpContext.RequestServices.GetService<IMediator>();

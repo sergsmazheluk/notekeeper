@@ -2,6 +2,7 @@ using Notes.Application.Common.Mappings;
 using Notes.Application;
 using Notes.Persistance;
 using System.Reflection;
+using SQLitePCL;
 
 namespace Notes.WebApi
 {
@@ -9,6 +10,10 @@ namespace Notes.WebApi
     {
         public static void Main(string[] args)
         {
+            // ÈÍÈÖÈÀËÈÇÀÖÈß SQLITE
+            try { Batteries_V2.Init(); }
+            catch { Batteries.Init(); }
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -21,7 +26,8 @@ namespace Notes.WebApi
             builder.Services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
-                cfg.AddProfile(new AssemblyMappingProfile(typeof(AssemblyMappingProfile).Assembly));
+                cfg.AddProfile(new AssemblyMappingProfile(typeof(AssemblyMappingProfile)
+                    .Assembly));
             });
 
             builder.Services.AddApplication();
